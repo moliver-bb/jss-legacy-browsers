@@ -8,23 +8,25 @@ var legacyBrowsers = require('css-legacy-browsers')
  * @param {Rule} rule
  * @api public
  */
-module.exports = function (rule) {
-    var style = rule.style
+module.exports = function () {
+    return function (rule) {
+        var style = rule.style
 
-    for (var prop in style) {
-        var value = style[prop]
+        for (var prop in style) {
+            var value = style[prop]
 
-        var changeProp = false
-        var changeValue = false
+            var changeProp = false
+            var changeValue = false
 
-        var legacyStyle = legacyBrowsers.supportedStyles(prop, value)
+            var legacyStyle = legacyBrowsers.supportedStyles(prop, value)
 
-        if (legacyStyle && legacyStyle.property !== prop) changeProp = true
-        if (legacyStyle && legacyStyle.value !== value) changeValue = true
+            if (legacyStyle && legacyStyle.property !== prop) changeProp = true
+            if (legacyStyle && legacyStyle.value !== value) changeValue = true
 
-        if (changeProp || changeValue) {
-            if (changeProp) delete style[prop]
-            style[legacyStyle.property] = legacyStyle.value
+            if (changeProp || changeValue) {
+                if (changeProp) delete style[prop]
+                style[legacyStyle.property] = legacyStyle.value
+            }
         }
     }
 }

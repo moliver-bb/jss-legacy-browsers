@@ -27,7 +27,7 @@ In IE10 will be mapped to:
 ```javascript
 var jss = require('jss')
 var legacyBrowsers = require('jss-legacy-browsers')
-jss.use(legacyBrowsers)
+jss.use(legacyBrowsers())
 ```
 
 ## Legacy browsers supported
